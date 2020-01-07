@@ -12,8 +12,7 @@
 *.elf
 
 # Link script
-*.lds
-*.ls
+
 
 # Linker output
 *.ilk
@@ -49,7 +48,7 @@
 *.su
 *.idb
 *.pdb
-*.dis
+
 # Kernel Module Compile Results
 *.mod*
 *.cmd

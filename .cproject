@@ -144,6 +144,7 @@
 		<buildTargets>
 			<target name="sum" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>${cross_make}</buildCommand>
+				<buildArguments/>
 				<buildTarget>sum</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>

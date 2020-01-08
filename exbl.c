@@ -8,6 +8,7 @@
 #include <string.h>
 #include "reg.h"
 #include "npu.h"
+#include "dma.h"
 
 #define SIZE_OF_DATA 1024*16
 int g_test_data = 0;
@@ -55,7 +56,7 @@ void main_0(void)
  //   _init_data_section();
   //   _init_bss_section();
 	Uart_Init(115200);
-	 printf("This is CPU 0\n");
+	// printf("This is CPU 0\n");
 
 
 #define CONV_IA_ADDR 0x80400000
@@ -85,17 +86,17 @@ void main_0(void)
 
  int offset =0;
 
- 	memcpy((void *)(intptr_t)CONV_IA_ADDR		,(void *)(intptr_t)pSfls			, CONV_IA_SIZE);
+ 	 dma_copy((void *)(intptr_t)CONV_IA_ADDR		,(void *)(intptr_t)pSfls			, CONV_IA_SIZE);
  	offset += CONV_IA_SIZE;
- 	memcpy((void *)(intptr_t)CONV_OA_ADDR_COMP	,(void *)(intptr_t)pSfls+offset	, CONV_OA_SIZE);
+ 	dma_copy((void *)(intptr_t)CONV_OA_ADDR_COMP	,(void *)(intptr_t)pSfls+offset	, CONV_OA_SIZE);
  	offset += CONV_OA_SIZE;
- 	memcpy( (void *)(intptr_t)CONV_W_ADDR		,(void *)(intptr_t)pSfls+offset	,CONV_W_SIZE);
+ 	dma_copy( (void *)(intptr_t)CONV_W_ADDR		,(void *)(intptr_t)pSfls+offset	,CONV_W_SIZE);
  	offset += CONV_W_SIZE;
- 	memcpy((void *)(intptr_t)CONV_B_ADDR		,(void *)(intptr_t)pSfls+offset	, CONV_B_SIZE);
+ 	dma_copy((void *)(intptr_t)CONV_B_ADDR		,(void *)(intptr_t)pSfls+offset	, CONV_B_SIZE);
  	offset += CONV_B_SIZE;
- 	memcpy((void *)(intptr_t)CONV_CMD_ADDR		,(void *)(intptr_t)pSfls+offset	, CONV_CMD_SIZE);
+ 	dma_copy((void *)(intptr_t)CONV_CMD_ADDR		,(void *)(intptr_t)pSfls+offset	, CONV_CMD_SIZE);
 
- 	memset((void *)(intptr_t)CONV_OA_ADDR,0, CONV_OA_SIZE);
+ 	dma_set((void *)(intptr_t)CONV_OA_ADDR,0, CONV_OA_SIZE);
  	hwflush_dcache_range_all();
 /*
  	printf("###########################RUN NPU#####################################\n");

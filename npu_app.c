@@ -136,6 +136,7 @@ void npu_run_pic(npu_t* npu_inst)
 #ifdef NPU_DEBUG
         if (--wait_time_out < 0) {
             npu_debug("wait time out\r\n", 0);
+//            printf("wait time out\r\n", 0);
             break;
         }
 #endif

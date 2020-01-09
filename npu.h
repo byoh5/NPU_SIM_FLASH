@@ -3,12 +3,12 @@
 
 #include "print.h"
 
-//#define NPU_DEBUG
+#define NPU_DEBUG
 
 #ifdef NPU_DEBUG
-#   define npu_debug(format, ...)  do {_printf(format, __VA_ARGS__);} while(0)
-#else
 #   define npu_debug(format, ...)  do {} while(0)
+#else
+#   define npu_debug(format, ...)  do {_printf(format, __VA_ARGS__);} while(0)
 #endif
 
 #define NPU_MIN(a,b) (((a)<(b))?(a):(b))

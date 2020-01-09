@@ -9,6 +9,7 @@
 #include "reg.h"
 #include "npu.h"
 #include "dma.h"
+#include "en675.h"
 
 #define SIZE_OF_DATA 1024*16
 int g_test_data = 0;
@@ -56,7 +57,7 @@ void main_0(void)
  //   _init_data_section();
   //   _init_bss_section();
 	Uart_Init(115200);
-	// printf("This is CPU 0\n");
+//	 printf("This is CPU 0\n");
 
 
 #define CONV_IA_ADDR 0x80400000
@@ -86,6 +87,8 @@ void main_0(void)
 
  int offset =0;
 
+//    memset((void *)(intptr_t)0x80000000,0, 0x1000000);
+
  	 dma_copy((void *)(intptr_t)CONV_IA_ADDR		,(void *)(intptr_t)pSfls			, CONV_IA_SIZE);
  	offset += CONV_IA_SIZE;
  	dma_copy((void *)(intptr_t)CONV_OA_ADDR_COMP	,(void *)(intptr_t)pSfls+offset	, CONV_OA_SIZE);
@@ -96,8 +99,9 @@ void main_0(void)
  	offset += CONV_B_SIZE;
  	dma_copy((void *)(intptr_t)CONV_CMD_ADDR		,(void *)(intptr_t)pSfls+offset	, CONV_CMD_SIZE);
 
- 	dma_set((void *)(intptr_t)CONV_OA_ADDR,0, CONV_OA_SIZE);
- 	hwflush_dcache_range_all();
+ 	dma_set((void *)(intptr_t)CONV_OA_ADDR,CONV_OA_SIZE,0);
+ //	hwflush_dcache_range_all();
+ //	 _printf("DDR done\n");
 /*
  	printf("###########################RUN NPU#####################################\n");
  	offset =0;
@@ -140,9 +144,9 @@ void main_0(void)
     hwflush_dcache_range_all();
 
     if(memcmp((void *)(intptr_t)CONV_OA_ADDR,(void *)(intptr_t)CONV_OA_ADDR_COMP, CONV_OA_SIZE   )){
-    	printf("###########################FFAAIILL!!#####################################");
+    	_printf("###########################FFAAIILL!!#####################################");
     }else{
-    	printf("###########################Success !!#####################################");
+    	_printf("###########################Success !!#####################################");
     }
 
 

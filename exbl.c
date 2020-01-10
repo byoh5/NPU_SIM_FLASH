@@ -75,14 +75,8 @@ void main_0(void)
 #define CONV_CMD_SIZE 208
 
 
-unsigned int *pDdr = (unsigned int*)CONV_CMD_ADDR;//(unsigned int*)SFLS_BASE;
 
-  if(*pDdr == 0x6F656E63){
-	//  printf("OK 0x6F656E63 == %08x",*pDdr);
-  }else{
-	  printf("NO 0x6F656E63 != %08x",*pDdr);
-	  while(1);
-  }
+
 
 
 // DdrInit(2);
@@ -99,6 +93,15 @@ unsigned int *pDdr = (unsigned int*)CONV_CMD_ADDR;//(unsigned int*)SFLS_BASE;
 
 //    memset((void *)(intptr_t)0x80000000,0, 0x1000000);
 
+ // Reset(init) ddr for Simulation
+ 	 dma_set((void *)(intptr_t)CONV_IA_ADDR,		CONV_IA_SIZE,0);
+ 	 dma_set((void *)(intptr_t)CONV_OA_ADDR_COMP,	CONV_OA_SIZE,0);
+ 	 dma_set((void *)(intptr_t)CONV_W_ADDR,			CONV_W_SIZE,0);
+ 	 dma_set((void *)(intptr_t)CONV_B_ADDR,			CONV_B_SIZE,0);
+ 	 dma_set((void *)(intptr_t)CONV_CMD_ADDR,		CONV_CMD_SIZE,0);
+
+
+
  	 dma_copy((void *)(intptr_t)CONV_IA_ADDR		,(void *)(intptr_t)pSfls			, CONV_IA_SIZE);
  	offset += CONV_IA_SIZE;
  	dma_copy((void *)(intptr_t)CONV_OA_ADDR_COMP	,(void *)(intptr_t)pSfls+offset	, CONV_OA_SIZE);
@@ -110,6 +113,15 @@ unsigned int *pDdr = (unsigned int*)CONV_CMD_ADDR;//(unsigned int*)SFLS_BASE;
  	dma_copy((void *)(intptr_t)CONV_CMD_ADDR		,(void *)(intptr_t)pSfls+offset	, CONV_CMD_SIZE);
 
  	dma_set((void *)(intptr_t)CONV_OA_ADDR,CONV_OA_SIZE,0);
+
+ 	unsigned int *pDdr = (unsigned int*)CONV_CMD_ADDR;//(unsigned int*)SFLS_BASE;
+
+ 	  if(*pDdr == 0x6F656E63){
+ 		//  printf("OK 0x6F656E63 == %08x",*pDdr);
+ 	  }else{
+ 		  printf("NO 0x6F656E63 != %08x",*pDdr);
+ 		  while(1);
+ 	  }
  //	hwflush_dcache_range_all();
  //	 _printf("DDR done\n");
 /*

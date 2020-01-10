@@ -75,12 +75,22 @@ void main_0(void)
 #define CONV_CMD_SIZE 208
 
 
+unsigned int *pDdr = (unsigned int*)CONV_CMD_ADDR;//(unsigned int*)SFLS_BASE;
+
+  if(*pDdr == 0x6F656E63){
+	//  printf("OK 0x6F656E63 == %08x",*pDdr);
+  }else{
+	  printf("NO 0x6F656E63 != %08x",*pDdr);
+	  while(1);
+  }
+
+
 // DdrInit(2);
 
 // int id = read_csr(mhartid);
 // _printf("This is CPU : %d\n",id); // ADD some ...
 // int targetArea = id + 1;
- unsigned char *pSfls = (unsigned int*)0xc0010000;//(unsigned int*)SFLS_BASE;
+ unsigned char *pSfls = (unsigned char*)0xc0010000;//(unsigned int*)SFLS_BASE;
 
 
 //    hwflush_dcache_range_all();

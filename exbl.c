@@ -278,6 +278,14 @@ orbit_writel(OMC_APB_BASE_ADDR + 0x20, 0x00000001);
 void main_0(void)
 {
 
+	SYS_PLL2_PWDN = 0;
+	SYS_PLL2_P	  = 8;
+	SYS_PLL2_M	  = 530;
+	SYS_PLL2_S    = 2;
+	SYS_PLL2_PWDN = 1;
+
+
+
 	SYS_GPIO56_MUX = 3;	//	UART7
 		SYS_GPIO57_MUX = 3;	//	UART7
 

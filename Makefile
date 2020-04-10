@@ -37,6 +37,7 @@ SRCS +=	rv_utils.c
 SRCS += exbl.c
 SRCS += mentry.S
 SRCS += boot.c
+SRCS += sfls.c
 SRCS += npu_apb.c
 SRCS += npu_app.c
 
@@ -49,6 +50,7 @@ OBJS +=	rv_utils.o
 OBJS += exbl.o
 OBJS += mentry.o
 OBJS += boot.o	
+OBJS += sfls.o
 OBJS += npu_apb.o
 OBJS += npu_app.o
 

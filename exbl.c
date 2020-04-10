@@ -10,6 +10,7 @@
 #include "npu.h"
 #include "dma.h"
 #include "en675.h"
+#include "sfls.h"
 
 #define SIZE_OF_DATA 1024*16
 int g_test_data = 0;
@@ -59,38 +60,7 @@ unsigned int orbit_readl(volatile unsigned int *addr)
 
 #define CPU_FREQ				(600*1000*1000)
 
-void WaitXns(uint64_t ns)
-{	// Wait X usec
-	uint64_t clk_period = ns;
-	uint64_t start_clk = rdcycle();
-	uint64_t clk;
-	do {
-		uint64_t stop_clk = rdcycle();
-		clk = stop_clk - start_clk;
-		if (stop_clk < start_clk) {
-			clk = ~clk + 1;	// neg --> abs
-		}
-	} while(clk < clk_period);
-}
 
-void WaitXus(uint64_t us)
-{	// Wait X usec
-	uint64_t clk_period = (CPU_FREQ / (1000 * 1000)) * us;
-	uint64_t start_clk = rdcycle();
-	uint64_t clk;
-	do {
-		uint64_t stop_clk = rdcycle();
-		clk = stop_clk - start_clk;
-		if (stop_clk < start_clk) {
-			clk = ~clk + 1;	// neg --> abs
-		}
-	} while(clk < clk_period);
-}
-
-void WaitXms(uint64_t ms)
-{	// Wait X msec
-	WaitXus(ms * 1000);
-}
 
 // Sleep ns nano-seconds
 void orbit_nsleep(int ns)
@@ -278,11 +248,14 @@ orbit_writel(OMC_APB_BASE_ADDR + 0x20, 0x00000001);
 void main_0(void)
 {
 
-	SYS_PLL2_PWDN = 0;
+	sfls_init();
+	orbit_init_dfs_233MHz();
+
+/*	SYS_PLL2_PWDN = 0;
 	SYS_PLL2_P	  = 8;
 	SYS_PLL2_M	  = 530;
 	SYS_PLL2_S    = 2;
-	SYS_PLL2_PWDN = 1;
+	SYS_PLL2_PWDN = 1;*/
 
 
 

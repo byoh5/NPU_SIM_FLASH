@@ -1,4 +1,4 @@
-
+#include "en675.h"
 
 #ifndef REG_H_
 #define REG_H_
